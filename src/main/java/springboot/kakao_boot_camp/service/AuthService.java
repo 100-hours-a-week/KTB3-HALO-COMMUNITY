@@ -28,12 +28,10 @@ public class AuthService {      //Dto로 컨트롤러에서 받음
 
         // 2. User Table에 새로운 정보 저장
         User user = User.createNormalUser(req.email(), passwordEncoder.encode(req.passWord()), req.nickName(), req.profileImage());
-        userRepo.save(user);
+        User savedUSer = userRepo.save(user);
 
-
-
-
-        return null;
+        // 3. Sign Response DTO 반환
+        return new SignRes(savedUSer.getId());
 
     }
 }
