@@ -18,7 +18,7 @@ public enum ErrorCode {
 
 
     // 409 회원가입
-    DUPLICATE_EMAIL("DUPLICATE_EMAIL", "이미 존재하는 이메일입니다.");
+    DUPLICATE_EMAIL("DUPLICATE_EMAIL", "중복된 이메일 입니다.");
 
     private final String code;
     private final String msg;

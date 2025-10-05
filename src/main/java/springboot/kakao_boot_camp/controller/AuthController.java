@@ -2,10 +2,12 @@ package springboot.kakao_boot_camp.controller;
 
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springboot.kakao_boot_camp.dto.AuthDtos.*;
@@ -21,7 +23,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/signup")
-    public ResponseEntity<ApiResponse<SignRes>> signUp(/*@RequestBody @Valid SignReq req,*/ HttpServletResponse servletRes) {
+    public ResponseEntity<ApiResponse<SignRes>> signUp(@RequestBody @Valid SignReq req, HttpServletResponse servletRes) {
 
         SignRes res = authService.signUp(req);    //data 얻기
 
