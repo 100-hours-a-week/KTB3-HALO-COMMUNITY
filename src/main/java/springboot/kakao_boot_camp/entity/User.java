@@ -1,6 +1,8 @@
 package springboot.kakao_boot_camp.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -19,12 +21,15 @@ public class User {
     private Long Id;
 
     @Column(nullable = false)
+    @Email(message = "올바른 이메일 형식이여야 합니다.")
     private String email;
 
     @Column(nullable = false)
+    @Size(min = 8, max = 20, message = "비밀번호는 8~20자여야 합니다.")
     private String password;
 
     @Column(nullable = false)
+    @Size(min = 2, max = 10, message = "닉네임은 2~10자여야 합니다.")
     private String nickName;
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)

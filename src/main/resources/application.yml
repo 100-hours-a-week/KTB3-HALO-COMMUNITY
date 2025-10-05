@@ -1,4 +1,7 @@
 spring:
+  main:
+    banner-mode: off
+
   datasource:
     url : jdbc:mysql://localhost:3306/Community?serverTimezone=UTC&useSSL=false
     username: root
