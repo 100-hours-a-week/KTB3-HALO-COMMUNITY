@@ -23,15 +23,13 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<ApiResponse<SignRes>> signUp(/*@RequestBody @Valid SignReq req,*/ HttpServletResponse servletRes) {
 
-//        SignRes res = authService.signUp(req);    //data 얻기
-
-//        return ResponseEntity
-//                .status(HttpStatus.OK)
-//                .body(ApiResponse.ok("register_success",res));
-//                //.body(ApiReponse.ok(authResDto);
+        SignRes res = authService.signUp(req);    //data 얻기
 
         return ResponseEntity
-                .status(HttpStatus.CONFLICT)
-                .body(ApiResponse.clientError(ErrorCode.DUPLICATE_EMAIL));
+                .status(HttpStatus.OK)
+                .body(ApiResponse.success("register_success",res));
+                //.body(ApiReponse.success(authResDto);
+
+
     }
 }
