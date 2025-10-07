@@ -1,33 +1,32 @@
-package springboot.kakao_boot_camp.domain.post.dto;
+package springboot.kakao_boot_camp.domain.post.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import springboot.kakao_boot_camp.domain.user.entity.User;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
-public class PostImage {
+public class PostLike {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_image_id")
     private Long id;
-
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
 
-    @Column
-    private String postImageUrl;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column
-    private LocalDateTime createdAt;
+    LocalDateTime createdAt;
 
-    @Column
-    private LocalDateTime updatedAt;
+    // 좋아요는 수정 시각이 필요가 없음
+
 }

@@ -1,10 +1,10 @@
-package springboot.kakao_boot_camp.domain.post.dto;
+package springboot.kakao_boot_camp.domain.post.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
-import springboot.kakao_boot_camp.domain.user.dto.User;
+import springboot.kakao_boot_camp.domain.user.entity.User;
 
 import java.time.LocalDateTime;
 

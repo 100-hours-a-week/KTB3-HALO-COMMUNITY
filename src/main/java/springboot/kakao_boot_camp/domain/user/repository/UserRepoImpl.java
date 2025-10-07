@@ -4,7 +4,7 @@ package springboot.kakao_boot_camp.domain.user.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
-import springboot.kakao_boot_camp.entity.User;
+import springboot.kakao_boot_camp.domain.user.entity.*;
 
 import java.util.List;
 

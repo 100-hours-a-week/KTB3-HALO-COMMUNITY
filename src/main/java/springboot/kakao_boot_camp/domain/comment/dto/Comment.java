@@ -4,8 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import springboot.kakao_boot_camp.domain.post.dto.Post;
-import springboot.kakao_boot_camp.domain.user.dto.User;
+import springboot.kakao_boot_camp.domain.user.entity.User;
 
 import java.time.LocalDateTime;
 
