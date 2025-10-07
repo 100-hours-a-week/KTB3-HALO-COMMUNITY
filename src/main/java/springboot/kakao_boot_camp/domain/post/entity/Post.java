@@ -28,6 +28,8 @@ public class Post {
     @Column(nullable = false)
     String content;
 
+    String imageUrl;
+
     @Column(nullable = false)
     int likeCount = 0;      // default 0
 
@@ -41,7 +43,6 @@ public class Post {
     LocalDateTime cratedAt;
 
     LocalDateTime updatedAt;
-
 
 
 
