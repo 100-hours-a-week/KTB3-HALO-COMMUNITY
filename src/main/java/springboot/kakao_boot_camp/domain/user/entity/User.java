@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import springboot.kakao_boot_camp.domain.post.entity.Post;
 
 import java.time.LocalDateTime;
 import java.util.List;
