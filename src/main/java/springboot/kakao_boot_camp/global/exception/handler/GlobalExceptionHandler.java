@@ -15,13 +15,20 @@ import springboot.kakao_boot_camp.global.exception.DuplicateResourceException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    //409
-    @ExceptionHandler(DuplicateResourceException.class)
-    public ResponseEntity<ApiResponse<Void>> hanlderDuplicateResource(DuplicateResourceException e){
-        return  ResponseEntity
-                .status(HttpStatus.CONFLICT)                                    // 409
-                .body(ApiResponse.clientError(ErrorCode.DUPLICATE_EMAIL));        // code : DUPLICATE_EMAIL, message : 이미 존재하는 이메일입니다
+
+
+    // -- BusinessException --
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ApiResponse<Void>> handleBusinessException(BusinessException e){
+        return ResponseEntity
+                .status(e.getErrorCode().getStatus())
+                .body(ApiResponse.clientError(e.getErrorCode()));
     }
+
+
+
+
+    // -- Common --
 
 
     // 400
@@ -37,22 +44,19 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)   // 400
-                .body(ApiResponse.clientError(ErrorCode.INVALID_REQUEST, errorMessage));
+                .body(ApiResponse.clientError(ErrorCode.INVALID_REQUEST));
     }
 
-    // 로그인 실패(자격 증명 실패) → 401
-    @ExceptionHandler(InvalidLoginException.class)
-    public ResponseEntity<ApiResponse<Void>> handleInvalidLogin(InvalidLoginException e) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(ApiResponse.clientError(ErrorCode.AUTHENTICATION_FAILED, e.getMessage()));
+
+    //409
+    @ExceptionHandler(DuplicateResourceException.class)
+    public ResponseEntity<ApiResponse<Void>> hanlderDuplicateResource(DuplicateResourceException e){
+        return  ResponseEntity
+                .status(HttpStatus.CONFLICT)                                    // 409
+                .body(ApiResponse.clientError(ErrorCode.DUPLICATE_EMAIL));        // code : DUPLICATE_EMAIL, message : 이미 존재하는 이메일입니다
     }
 
-    @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<ApiResponse<Void>> handleBusinessException(BusinessException e){
 
-        return ResponseEntity
-                .status(e.getErrorCode().getStatus())
-                .body(ApiResponse.clientError(e.getErrorCode()));
-    }
+
 
 }
