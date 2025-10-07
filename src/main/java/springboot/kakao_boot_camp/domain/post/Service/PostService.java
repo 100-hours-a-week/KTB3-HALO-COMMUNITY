@@ -1,6 +1,7 @@
 package springboot.kakao_boot_camp.domain.post.Service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import springboot.kakao_boot_camp.domain.post.dto.PostDtos.*;
 import springboot.kakao_boot_camp.domain.post.entity.Post;
 import springboot.kakao_boot_camp.domain.post.exception.PostNotFoundException;
@@ -21,17 +22,7 @@ public class PostService {
         Post post = postRepository.findById(id)
                 .orElseThrow(PostNotFoundException::new);
 
-        return new PostGetRes(
-                post.getId(),
-                post.getTitle(),
-                post.getContent(),
-                post.getImageUrl(),
-                post.getLikeCount(),
-                post.getViewCount(),
-                post.getCommentCount(),
-                post.getCratedAt(),
-                post.getUpdatedAt()
-        );
+        return PostGetRes.from(post);
 
     }
     public PostCreateRes createPost(PostCreateReq req){
@@ -42,12 +33,19 @@ public class PostService {
 
         Post saved = postRepository.save(post);
 
-        return new PostCreateRes(
-                saved.getId(),
-                saved.getTitle(),
-                saved.getContent(),
-                saved.getImageUrl(),
-                saved.getCratedAt()
-        );
+        return PostCreateRes.from(post);
+    }
+
+    @Transactional
+    public PostUpdateRes updatePost(Long postId, PostUpdateReq req){
+        Post post = postRepository.findById(id)
+                .orElseThrow(PostNotFoundException::new);
+
+        // 더티 체킹
+        if(post.getTitle()!=null){post.setTitle(req.title());}
+        if(post.getContent()!=null){post.setContent(req.content());}
+        if(post.getImageUrl()!=null){post.setImageUrl(req.imageUrl());}
+
+        return PostUpdateRes.from(post);
     }
 }

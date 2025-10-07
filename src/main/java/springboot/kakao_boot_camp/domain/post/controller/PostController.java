@@ -1,6 +1,7 @@
 package springboot.kakao_boot_camp.domain.post.controller;
 
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,8 +50,8 @@ public class PostController {
     // 1. Patch 사용 이유 : 게시글의 부분 수정일 경우를 고려하여 Patch를 사용하였습니다.
     // 2. Put을 만들지 않은 이유 : 모두 수정되었을 경우, Patch로도 충분히 구현 가능하기 때문입니다.
     @PatchMapping
-    public ResponseEntity<ApiResponse<PostGetRes>> update(@RequestBody PostGetReq req) {
-        PostGetRes postRes = postService.patchPost(req);
+    public ResponseEntity<ApiResponse<PostUpdateRes>> update(@PathVariable Long postId, @RequestBody PostUpdateReq req) {
+        PostUpdateRes postRes = postService.updatePost(postId, req);
         return ResponseEntity
                 .status(HttpStatus.OK)      // StateLine에 200 전송
                 .body(ApiResponse.success(SuccessCode.POST_UPDATE_SUCCESS, postRes));
@@ -61,7 +62,7 @@ public class PostController {
 
     @DeleteMapping
     public ResponseEntity<ApiResponse<PostGetRes>> update(@RequestBody PostGetReq req) {
-        PostGetRes postRes = postService.patchPost(req);
+        PostGetRes postRes = postService.deletePost(req);
         return ResponseEntity
                 .status(HttpStatus.OK)      // StateLine에 200 전송
                 .body(ApiResponse.success(SuccessCode.POST_UPDATE_SUCCESS, postRes));
