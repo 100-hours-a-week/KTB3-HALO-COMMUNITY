@@ -1,5 +1,6 @@
 package springboot.kakao_boot_camp.domain.post.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,24 +21,51 @@ public class PostController {
         this.postService=postService;
     }
 
+
+    // -- Get --
     @GetMapping
-    public ResponseEntity<ApiResponse<PostRes>> getPost(@PathVariable Long postId){
-        PostRes postRes= postService.getPost(postId);
+    public ResponseEntity<ApiResponse<PostGetRes>> get(@PathVariable Long postId){
+        PostGetRes res= postService.getPost(postId);
 
         return ResponseEntity
                 .status(HttpStatus.OK)      // StateLine에 200 전송
-                .body(ApiResponse.success(SuccessCode.POST_CREATE_SUCCESS, postRes));
+                .body(ApiResponse.success(SuccessCode.POST_READ_SUCCESS, res));
+    }
+
+
+    // -- Post --
+    @PostMapping
+    public ResponseEntity<ApiResponse<PostCreateRes>> create(@RequestBody @Valid PostCreateReq req) {
+        PostCreateRes res = postService.createPost(req);
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)      // StateLine에 200 전송
+                .body(ApiResponse.success(SuccessCode.POST_CREATE_SUCCESS, res));
     }
 
 
 
-//    @PostMapping
+    // -- Get --
+    // 1. Patch 사용 이유 : 게시글의 부분 수정일 경우를 고려하여 Patch를 사용하였습니다.
+    // 2. Put을 만들지 않은 이유 : 모두 수정되었을 경우, Patch로도 충분히 구현 가능하기 때문입니다.
+    @PatchMapping
+    public ResponseEntity<ApiResponse<PostGetRes>> update(@RequestBody PostGetReq req) {
+        PostGetRes postRes = postService.patchPost(req);
+        return ResponseEntity
+                .status(HttpStatus.OK)      // StateLine에 200 전송
+                .body(ApiResponse.success(SuccessCode.POST_UPDATE_SUCCESS, postRes));
+    }
 
 
-//    @PutMapping
 
 
-//    @DeleteMapping
+    @DeleteMapping
+    public ResponseEntity<ApiResponse<PostGetRes>> update(@RequestBody PostGetReq req) {
+        PostGetRes postRes = postService.patchPost(req);
+        return ResponseEntity
+                .status(HttpStatus.OK)      // StateLine에 200 전송
+                .body(ApiResponse.success(SuccessCode.POST_UPDATE_SUCCESS, postRes));
+    }
 
 
 }

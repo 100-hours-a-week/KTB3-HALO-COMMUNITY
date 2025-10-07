@@ -17,11 +17,11 @@ public class PostService {
         this.postRepository=postRepository;
     }
 
-    public PostRes getPost(Long id){
+    public PostGetRes getPost(Long id){
         Post post = postRepository.findById(id)
                 .orElseThrow(PostNotFoundException::new);
 
-        return new PostRes(
+        return new PostGetRes(
                 post.getId(),
                 post.getTitle(),
                 post.getContent(),
@@ -33,5 +33,21 @@ public class PostService {
                 post.getUpdatedAt()
         );
 
+    }
+    public PostCreateRes createPost(PostCreateReq req){
+        Post post = new Post();
+        post.setTitle(req.title());
+        post.setContent(req.content());
+        post.setImageUrl(req.imageUrl());
+
+        Post saved = postRepository.save(post);
+
+        return new PostCreateRes(
+                saved.getId(),
+                saved.getTitle(),
+                saved.getContent(),
+                saved.getImageUrl(),
+                saved.getCratedAt()
+        );
     }
 }

@@ -6,5 +6,4 @@ import springboot.kakao_boot_camp.domain.post.entity.Post;
 import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
-
 }
