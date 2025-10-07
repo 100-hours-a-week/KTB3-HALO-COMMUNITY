@@ -10,15 +10,19 @@ spring:
 
   jpa:
       hibernate:
-        ddl-auto: none   # 개발 중에는 create / create-drop / update 중 선택
+        ddl-auto: update   # 개발 중에는 create / create-drop / update 중 선택
       properties:
         hibernate:
           format_sql: true
           use_sql_comments: true
 
   logging:
-    level:
-      org.hibernate.SQL: debug
+    logging:
+      level:
+        root: INFO
+        org.springframework.web: DEBUG
+        org.springframework.security: DEBUG
+
 server:
   port: 8083
 

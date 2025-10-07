@@ -4,11 +4,14 @@ package springboot.kakao_boot_camp.domain.auth.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import springboot.kakao_boot_camp.domain.auth.dto.AuthDtos.*;
-import springboot.kakao_boot_camp.entity.User;
+import springboot.kakao_boot_camp.domain.user.entity.User;
 import springboot.kakao_boot_camp.global.api.ErrorCode;
+import springboot.kakao_boot_camp.global.constant.DefaultImage;
 import springboot.kakao_boot_camp.global.exception.DuplicateResourceException;
 import springboot.kakao_boot_camp.domain.user.repository.UserRepo;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.time.LocalDateTime;
 
 
 @Service
@@ -26,11 +29,16 @@ public class AuthService {      //Dto로 컨트롤러에서 받음
             throw new DuplicateResourceException(ErrorCode.DUPLICATE_EMAIL);
         }
 
-        // 2. User Table에 새로운 정보 저장
-        User user = User.createNormalUser(req.email(), passwordEncoder.encode(req.passWord()), req.nickName(), req.profileImage());
+
+        // 2. User 객체 생성
+        String encodedPassWord = passwordEncoder.encode(req.passWord());
+        User user = new User(req.email(), encodedPassWord, req.nickName(), req.profileImage());
+
+
+        // 3. DB에 저장
         User savedUSer = userRepo.save(user);
 
-        // 3. Sign Response DTO 반환
+        // 4. Sign Response DTO 반환
         return new SignRes(savedUSer.getId());
 
     }

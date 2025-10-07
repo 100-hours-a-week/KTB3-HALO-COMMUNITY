@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springboot.kakao_boot_camp.domain.user.dto.UserResDto;
-import springboot.kakao_boot_camp.entity.User;
+import springboot.kakao_boot_camp.domain.user.entity.User;
 import springboot.kakao_boot_camp.domain.user.service.UserService;
 
 import java.util.List;
