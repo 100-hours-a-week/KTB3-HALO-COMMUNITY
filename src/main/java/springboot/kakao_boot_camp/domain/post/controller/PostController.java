@@ -29,9 +29,7 @@ public class PostController {
                 .body(ApiResponse.success(SuccessCode.POST_CREATE_SUCCESS, postRes));
     }
 
-    public void ffd(){
 
-    }
 
 //    @PostMapping
 
