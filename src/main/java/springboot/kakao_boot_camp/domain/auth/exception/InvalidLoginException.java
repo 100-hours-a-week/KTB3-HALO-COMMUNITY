@@ -6,7 +6,7 @@ import springboot.kakao_boot_camp.global.exception.BusinessException;
 
 // 401
 public class InvalidLoginException extends BusinessException {
-    public InvalidLoginException(ErrorCode errorCode) {
-        super(status, errorCode, message);
+    public InvalidLoginException() {
+        super(ErrorCode.AUTHENTICATION_FAILED);
     }
 }
