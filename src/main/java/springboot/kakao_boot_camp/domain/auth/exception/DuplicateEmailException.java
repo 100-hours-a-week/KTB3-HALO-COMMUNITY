@@ -1,7 +1,11 @@
 package springboot.kakao_boot_camp.domain.auth.exception;
 
-public class DuplicateEmailException extends RuntimeException {
-    public DuplicateEmailException(String message) {
-        super(message);
+import org.springframework.http.HttpStatus;
+import springboot.kakao_boot_camp.global.api.ErrorCode;
+import springboot.kakao_boot_camp.global.exception.BusinessException;
+
+public class DuplicateEmailException extends BusinessException {
+    public DuplicateEmailException() {
+        super(ErrorCode.DUPLICATE_EMAIL);
     }
 }

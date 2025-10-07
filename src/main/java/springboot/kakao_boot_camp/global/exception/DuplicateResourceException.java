@@ -8,10 +8,10 @@ import springboot.kakao_boot_camp.global.api.ErrorCode;
 
 @Getter
 @Setter
-public class DuplicateResourceException extends RuntimeException{
+public class DuplicateResourceException extends BusinessException{
         ErrorCode errorCode;
 
     public DuplicateResourceException(ErrorCode errorCode){
-        super(errorCode.getMsg()); // Throwable의 detailMessage에 message 저장
+        super(ErrorCode.DUPLICATE_EMAIL); // Throwable의 detailMessage에 message 저장
     }
 }

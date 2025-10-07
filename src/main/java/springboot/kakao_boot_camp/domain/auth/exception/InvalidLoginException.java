@@ -1,11 +1,12 @@
 package springboot.kakao_boot_camp.domain.auth.exception;
 
-public class InvalidLoginException extends RuntimeException {
-    public InvalidLoginException() {
-        super("잘못된 로그인 시도입니다.");
-    }
+import springboot.kakao_boot_camp.global.api.ErrorCode;
+import springboot.kakao_boot_camp.global.exception.BusinessException;
 
-    public InvalidLoginException(String message) {
-        super(message);
+
+// 401
+public class InvalidLoginException extends BusinessException {
+    public InvalidLoginException(ErrorCode errorCode) {
+        super(status, errorCode, message);
     }
 }

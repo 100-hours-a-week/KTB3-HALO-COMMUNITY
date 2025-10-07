@@ -20,22 +20,22 @@ public class ApiResponse<T> {
     }
 
 
-    // -- Client Error --
-    public static <T> ApiResponse<T> clientError(ErrorCode errorCode){
-            return new ApiResponse<T>(errorCode.getCode(), errorCode.getMsg(),null);
-    }
 
-    // 오버로드: 커스텀 메시지 버전
-    public static <T> ApiResponse<T> clientError(ErrorCode errorCode, String customMessage) {
+
+    // -- Client Error --
+    public static <T> ApiResponse<T> clientError(ErrorCode errorCode) {
         return new ApiResponse<T>(
                 errorCode.getCode(),
-                customMessage,        // @Valid 같은 데서 넘어온 메시지
+                errorCode.getMessage(),        // @Valid 같은 데서 넘어온 메시지
                 null
         );
     }
 
     // -- Server Error --
     public static <T> ApiResponse<T> serverError(ErrorCode errorCode){
-            return new ApiResponse<T>(errorCode.getCode(), errorCode.getMsg(),null);
+            return new ApiResponse<T>(
+                    errorCode.getCode(),
+                    errorCode.getMessage(),
+                    null);
     }
 }

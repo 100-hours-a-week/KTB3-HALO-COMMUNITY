@@ -4,6 +4,7 @@ package springboot.kakao_boot_camp.domain.auth.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import springboot.kakao_boot_camp.domain.auth.dto.AuthDtos.*;
+import springboot.kakao_boot_camp.domain.auth.exception.DuplicateEmailException;
 import springboot.kakao_boot_camp.domain.user.entity.User;
 import springboot.kakao_boot_camp.global.api.ErrorCode;
 import springboot.kakao_boot_camp.global.constant.DefaultImage;
@@ -25,8 +26,8 @@ public class AuthService {      //Dto로 컨트롤러에서 받음
 
 
         // 1. 중복 확인
-        if (!userRepo.existsAllByEmail(req.email())) {
-            throw new DuplicateResourceException(ErrorCode.DUPLICATE_EMAIL);
+        if (userRepo.existsByEmail(req.email())) {
+            throw new DuplicateEmailException();
         }
 
 

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import springboot.kakao_boot_camp.domain.auth.exception.InvalidLoginException;
 import springboot.kakao_boot_camp.global.api.*;
+import springboot.kakao_boot_camp.global.exception.BusinessException;
 import springboot.kakao_boot_camp.global.exception.DuplicateResourceException;
 
 @RestControllerAdvice
@@ -44,6 +45,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse<Void>> handleInvalidLogin(InvalidLoginException e) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(ApiResponse.clientError(ErrorCode.AUTHENTICATION_FAILED, e.getMessage()));
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ApiResponse<Void>> handleBusinessException(BusinessException e){
+
+        return ResponseEntity
+                .status(e.getErrorCode().getStatus())
+                .body(ApiResponse.clientError(e.getErrorCode()));
     }
 
 }
