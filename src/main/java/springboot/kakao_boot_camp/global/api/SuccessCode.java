@@ -16,6 +16,8 @@ public enum SuccessCode {
     // -- User --
 
     // -- Post --
+    POST_LIST_READ_SUCCESS(HttpStatus.OK.value(), "게시글 목록을 성공적으로 조회하였습니다."),
+
     POST_CREATE_SUCCESS(HttpStatus.CREATED.value()  ,  "게시글을 성공적으로 등록하였습니다."),
     POST_READ_SUCCESS(HttpStatus.OK.value(), "게시글 조회를 성공하였습니다."),
     POST_UPDATE_SUCCESS(HttpStatus.OK.value(),  "게시글을 성공적으로 수정하였습니다."),
