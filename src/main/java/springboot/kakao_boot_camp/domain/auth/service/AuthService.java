@@ -31,9 +31,13 @@ public class AuthService {      //Dto로 컨트롤러에서 받음
         }
 
 
-        // 2. User 객체 생성
-        String encodedPassWord = passwordEncoder.encode(req.passWord());
-        User user = new User(req.email(), encodedPassWord, req.nickName(), req.profileImage());
+        User user = User.builder()
+                .email(req.email())
+                .passWord(passwordEncoder.encode(req.passWord()))
+                .nickName(req.nickName())
+                .profileImage(req.profileImage())
+                .posts(null)
+                .build();
 
 
         // 3. DB에 저장

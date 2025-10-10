@@ -9,10 +9,14 @@ import org.springframework.data.annotation.CreatedDate;
 import springboot.kakao_boot_camp.domain.post.entity.Post;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -25,7 +29,6 @@ public class User {
     private String email;
 
     @Column(nullable = false)
-    @Size(min = 8, max = 20, message = "비밀번호는 8자 이상, 20자 이하이며, 대문자, 소문자, 숫자 그리고 특수문자를 각각 최소 1개 포함해야 합니다.")
     private String passWord;
 
     @Column(nullable = false)
@@ -38,9 +41,9 @@ public class User {
 
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
-    private List<Post> posts;       // 명시적인 형태
+    @Builder.Default
+    private List<Post> posts = new ArrayList<>();       // 명시적인 형태
 
-    @CreatedDate
     LocalDateTime cratedAt;
 
     LocalDateTime updatedAt;
@@ -48,14 +51,9 @@ public class User {
     LocalDateTime deletedAt;
 
 
-    public User(String email, String passWord, String nickName, String profileImage) {
-        this.email = email;
-        this.passWord = passWord;
-        this.nickName = nickName;
-        this.profileImage = profileImage;
-    }
 
-    public User() {
 
-    }
+
+
+
 }

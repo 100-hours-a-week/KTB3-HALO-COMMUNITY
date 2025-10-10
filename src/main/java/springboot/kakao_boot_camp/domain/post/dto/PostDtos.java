@@ -114,5 +114,15 @@ public class PostDtos {
     }
 
     // -- D --
+    public record PostDeleteReq(){}
+    public record PostDeleteRes(
+            Long id,
+//            boolean deleted,        // 추후 soft 삭제 시 사용
+            LocalDateTime deletedAt
+    ){
+        public static PostDeleteRes from(Long id, /*boolean deleted,*/ LocalDateTime deletedAt){
+            return new PostDeleteRes(id, /*deleted,*/ deletedAt);
+        }
+    }
     
 }

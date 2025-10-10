@@ -17,7 +17,7 @@ import springboot.kakao_boot_camp.domain.auth.service.AuthService;
 
 @RequiredArgsConstructor
 @RestController     // v1, v2 같은 버전은 추후 버전 관리를 위해 필요한 것인데 해당 프로젝트는 학습용 이므로 추후에 유지 보수 예정 X -> 따라서 버전 명 명시 안할 예정
-@RequestMapping("/api/auth")
+@RequestMapping("/api/v1/auth")
 public class AuthController {
 
     private final AuthService authService;
