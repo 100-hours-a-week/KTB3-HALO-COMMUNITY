@@ -32,4 +32,15 @@ public class AuthController {
 
 
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<ApiResponse<LoginRes>> login(@RequestBody @Valid LoginReq req, HttpServletResponse servletRes) {
+        LoginRes res = authService.login(req);    //data 얻기
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ApiResponse.success(SuccessCode.LOGIN_SUCCESS, res));
+
+
+    }
 }

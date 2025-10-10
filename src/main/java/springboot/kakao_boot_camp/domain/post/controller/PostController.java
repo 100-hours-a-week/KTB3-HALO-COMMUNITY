@@ -17,18 +17,17 @@ public class PostController {
 
 
     // 학습용이라 @RequiredArgsConstructor 안씀
-    public PostController(PostService postService){
-        this.postService=postService;
+    public PostController(PostService postService) {
+        this.postService = postService;
     }
 
 
     // -- Get --
     @GetMapping
-    public ResponseEntity<ApiResponse<PostGetRes>> get(@PathVariable Long postId){
-        PostGetRes res= postService.getPost(postId);
+    public ResponseEntity<ApiResponse<PostGetRes>> get(@PathVariable Long postId) {
+        PostGetRes res = postService.getPost(postId);
 
-        return ResponseEntity
-                .status(HttpStatus.OK)      // StateLine에 200 전송
+        return ResponseEntity.status(HttpStatus.OK)      // StateLine에 200 전송
                 .body(ApiResponse.success(SuccessCode.POST_READ_SUCCESS, res));
     }
 
@@ -38,8 +37,7 @@ public class PostController {
     public ResponseEntity<ApiResponse<PostCreateRes>> create(@RequestBody @Valid PostCreateReq req) {
         PostCreateRes res = postService.createPost(req);
 
-        return ResponseEntity
-                .status(HttpStatus.CREATED)      // StateLine에 200 전송
+        return ResponseEntity.status(HttpStatus.CREATED)      // StateLine에 200 전송
                 .body(ApiResponse.success(SuccessCode.POST_CREATE_SUCCESS, res));
     }
 
@@ -48,12 +46,10 @@ public class PostController {
     // 1. Patch 사용 이유 : 게시글의 부분 수정일 경우를 고려하여 Patch를 사용하였습니다.
     // 2. Put을 만들지 않은 이유 : 모두 수정되었을 경우, Patch로도 충분히 구현 가능하기 때문입니다.
     @PatchMapping
-    public ResponseEntity<ApiResponse<PostUpdateRes>> update(@PathVariable Long postId, /*@AuthenticationPrincipal UserDetails user,*/
-                                                             @RequestBody PostUpdateReq req) {
+    public ResponseEntity<ApiResponse<PostUpdateRes>> update(@PathVariable Long postId, /*@AuthenticationPrincipal UserDetails user,*/ @RequestBody PostUpdateReq req) {
         PostUpdateRes res = postService.updatePost(postId, req);
 
-        return ResponseEntity
-                .status(HttpStatus.OK)      // StateLine에 200 전송
+        return ResponseEntity.status(HttpStatus.OK)      // StateLine에 200 전송
                 .body(ApiResponse.success(SuccessCode.POST_UPDATE_SUCCESS, res));
     }
 
@@ -62,8 +58,7 @@ public class PostController {
     @DeleteMapping
     public ResponseEntity<ApiResponse<PostDeleteRes>> delete(@PathVariable Long postId) {
         PostDeleteRes res = postService.deletePost(postId);
-        return ResponseEntity
-                .status(HttpStatus.OK)   // StateLine에 200 전송
+        return ResponseEntity.status(HttpStatus.OK)   // StateLine에 200 전송
                 .body(ApiResponse.success(SuccessCode.POST_DELETE_SUCCESS, res));
     }
 }

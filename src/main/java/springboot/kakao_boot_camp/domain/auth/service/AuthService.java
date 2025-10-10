@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import springboot.kakao_boot_camp.domain.auth.dto.AuthDtos.*;
 import springboot.kakao_boot_camp.domain.auth.exception.DuplicateEmailException;
+import springboot.kakao_boot_camp.domain.auth.exception.InvalidLoginException;
 import springboot.kakao_boot_camp.domain.user.entity.User;
 import springboot.kakao_boot_camp.global.api.ErrorCode;
 import springboot.kakao_boot_camp.global.constant.DefaultImage;
@@ -37,6 +38,8 @@ public class AuthService {      //Dto로 컨트롤러에서 받음
                 .nickName(req.nickName())
                 .profileImage(req.profileImage())
                 .posts(null)
+                .cratedAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
                 .build();
 
 
@@ -47,4 +50,23 @@ public class AuthService {      //Dto로 컨트롤러에서 받음
         return new SignRes(savedUSer.getId());
 
     }
+    public LoginRes login(LoginReq req) throws RuntimeException{
+        String accessTokenSample = "asfdafdfadsasdfadfsa";
+
+        User user = userRepo.findByEmail(req.email())
+                .orElseThrow(() -> new InvalidLoginException());
+
+
+
+         if(!passwordEncoder.matches(req.passWord(), user.getPassWord())){
+            throw new InvalidLoginException();
+        }
+
+
+        return LoginRes.from(user, accessTokenSample);
+
+    }
+
+
 }
+
