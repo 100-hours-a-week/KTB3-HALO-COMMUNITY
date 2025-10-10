@@ -6,9 +6,10 @@ import jakarta.validation.constraints.NotBlank;
 import springboot.kakao_boot_camp.domain.post.entity.Post;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
 
 public class PostDtos {
-    
     // -- C ==
     public record PostCreateReq(
             @NotBlank(message = "제목이 비었습니다.")
@@ -39,18 +40,68 @@ public class PostDtos {
     }
     
     
-    // -- R -- 
-    public record PostGetReq(
-            @NotBlank(message = "제목이 비었습니다.")
-            String title,
+    // -- R --
 
-            @NotBlank(message = "내용이 비었습니다.")
-            String content,
+    // 1. List
+    public record PostListRes(
+        List<PostSummary> posts,
+        PageInfo pageInfo
+    ) {
+        public static PostListRes of(List<PostSummary> posts, PageInfo pageInfo) {
+            return new PostListRes(posts, pageInfo);
+        }
 
-            String imageUrl
+        // 📝 게시글 요약 정보
+        public record PostSummary(
+                Long postId,
+                String title,
+                String nickname,
+                String profileImageUrl,
+                int likeCount,
+                int commentCount,
+                int viewCount,
+                LocalDateTime createdAt,
+                LocalDateTime updatedAt
+        ) {
+            public static PostSummary of(
+                    Long postId,
+                    String title,
+                    String nickname,
+                    String profileImageUrl,
+                    int likeCount,
+                    int commentCount,
+                    int viewCount,
+                    LocalDateTime createdAt,
+                    LocalDateTime updatedAt
+            ) {
+                return new PostSummary(
+                        postId,
+                        title,
+                        nickname,
+                        profileImageUrl,
+                        likeCount,
+                        commentCount,
+                        viewCount,
+                        createdAt,
+                        updatedAt
+                );
+            }
+        }
 
-    ){}
-    public record PostGetRes(
+        // 🧭 페이지 정보
+        public record PageInfo(
+                boolean hasNext,
+                Long nextCursor,
+                int size
+        ) {
+            public static PageInfo of(boolean hasNext, Long nextCursor, int size) {
+                return new PageInfo(hasNext, nextCursor, size);
+            }
+        }
+
+    }
+    // 2. Detail
+    public record PostDetailRes(
             Long postId,
             String title,
             String content,
@@ -63,8 +114,8 @@ public class PostDtos {
             LocalDateTime createdAt,
             LocalDateTime updatedAt
     ){
-        public static PostGetRes from(Post post){
-            return new PostGetRes(
+        public static PostDetailRes from(Post post){
+            return new PostDetailRes(
             post.getId(),
             post.getTitle(),
             post.getContent(),
@@ -78,6 +129,7 @@ public class PostDtos {
         }
 
     }
+
 
     // -- U --
     public record PostUpdateReq(
@@ -112,6 +164,7 @@ public class PostDtos {
             );
         }
     }
+
 
     // -- D --
     public record PostDeleteReq(){}
