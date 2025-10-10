@@ -9,23 +9,34 @@ import springboot.kakao_boot_camp.domain.post.dto.PostDtos.*;
 import springboot.kakao_boot_camp.global.api.ApiResponse;
 import springboot.kakao_boot_camp.global.api.SuccessCode;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/posts")
 public class PostController {
-
     private final PostService postService;
-
-
     // 학습용이라 @RequiredArgsConstructor 안씀
     public PostController(PostService postService) {
         this.postService = postService;
     }
 
 
+
+
     // -- Get --
+
+    //1. 전체 게시글
     @GetMapping
-    public ResponseEntity<ApiResponse<PostGetRes>> get(@PathVariable Long postId) {
-        PostGetRes res = postService.getPost(postId);
+    public ResponseEntity<ApiResponse<PostListRes>> getList(@RequestParam Long cursor) {
+        PostListRes res = postService.getPostList(cursor);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(ApiResponse.success(SuccessCode.POST_LIST_READ_SUCCESS, res));
+    }
+    //2. 특정 게시글 요청 ( 구현 & 동작 이상 무)
+    @GetMapping("/{postId}")
+    public ResponseEntity<ApiResponse<PostDetailRes>> getDetails(@PathVariable Long postId) {
+        PostDetailRes res = postService.getPostDetail(postId);
 
         return ResponseEntity.status(HttpStatus.OK)      // StateLine에 200 전송
                 .body(ApiResponse.success(SuccessCode.POST_READ_SUCCESS, res));
@@ -43,8 +54,6 @@ public class PostController {
 
 
     // -- Update : Patch --
-    // 1. Patch 사용 이유 : 게시글의 부분 수정일 경우를 고려하여 Patch를 사용하였습니다.
-    // 2. Put을 만들지 않은 이유 : 모두 수정되었을 경우, Patch로도 충분히 구현 가능하기 때문입니다.
     @PatchMapping
     public ResponseEntity<ApiResponse<PostUpdateRes>> update(@PathVariable Long postId, /*@AuthenticationPrincipal UserDetails user,*/ @RequestBody PostUpdateReq req) {
         PostUpdateRes res = postService.updatePost(postId, req);
