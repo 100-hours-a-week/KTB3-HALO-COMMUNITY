@@ -96,15 +96,10 @@ public class PostService {
                 .orElseThrow(PostNotFoundException::new);
 
         // 더티 체킹
-        if (post.getTitle() != null) {
-            post.setTitle(req.title());
-        }
-        if (post.getContent() != null) {
-            post.setContent(req.content());
-        }
-        if (post.getImageUrl() != null) {
-            post.setImageUrl(req.imageUrl());
-        }
+        if (req.title() != null)     post.setTitle(req.title());
+        if (req.content() != null)   post.setContent(req.content());
+        if (req.imageUrl() != null)  post.setImageUrl(req.imageUrl());
+
 
         return PostUpdateRes.from(post);
     }

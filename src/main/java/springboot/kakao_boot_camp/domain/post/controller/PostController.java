@@ -23,9 +23,7 @@ public class PostController {
 
 
 
-    // -- Get --
-
-    //1. 전체 게시글
+    // -- Get --   ✅
     @GetMapping
     public ResponseEntity<ApiResponse<PostListRes>> getList(@RequestParam Long cursor) {
         PostListRes res = postService.getPostList(cursor);
@@ -33,7 +31,7 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ApiResponse.success(SuccessCode.POST_LIST_READ_SUCCESS, res));
     }
-    //2. 특정 게시글 요청 ( 구현 & 동작 이상 무)
+
     @GetMapping("/{postId}")
     public ResponseEntity<ApiResponse<PostDetailRes>> getDetails(@PathVariable Long postId) {
         PostDetailRes res = postService.getPostDetail(postId);
@@ -43,7 +41,7 @@ public class PostController {
     }
 
 
-    // -- Post --
+    // -- Post --   ✅
     @PostMapping
     public ResponseEntity<ApiResponse<PostCreateRes>> create(@RequestBody @Valid PostCreateReq req) {
         PostCreateRes res = postService.createPost(req);
@@ -53,9 +51,9 @@ public class PostController {
     }
 
 
-    // -- Update : Patch --
-    @PatchMapping
-    public ResponseEntity<ApiResponse<PostUpdateRes>> update(@PathVariable Long postId, /*@AuthenticationPrincipal UserDetails user,*/ @RequestBody PostUpdateReq req) {
+    // -- Update -- ✅
+    @PatchMapping("/{postId}")
+    public ResponseEntity<ApiResponse<PostUpdateRes>> patch(@PathVariable Long postId, /*@AuthenticationPrincipal UserDetails user,*/ @RequestBody PostUpdateReq req) {
         PostUpdateRes res = postService.updatePost(postId, req);
 
         return ResponseEntity.status(HttpStatus.OK)      // StateLine에 200 전송
@@ -63,8 +61,8 @@ public class PostController {
     }
 
 
-    // -- Delete --
-    @DeleteMapping
+    // -- Delete -- ✅
+    @DeleteMapping("/{postId}")
     public ResponseEntity<ApiResponse<PostDeleteRes>> delete(@PathVariable Long postId) {
         PostDeleteRes res = postService.deletePost(postId);
         return ResponseEntity.status(HttpStatus.OK)   // StateLine에 200 전송

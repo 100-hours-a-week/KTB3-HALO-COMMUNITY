@@ -41,8 +41,6 @@ public class PostDtos {
     
     
     // -- R --
-
-    // 1. List
     public record PostListRes(
         List<PostSummary> posts,
         PageInfo pageInfo
@@ -100,7 +98,6 @@ public class PostDtos {
         }
 
     }
-    // 2. Detail
     public record PostDetailRes(
             Long postId,
             String title,
