@@ -45,6 +45,7 @@ public class PostController {
     // -- U --
     @PatchMapping("/{postId}")
     public ResponseEntity<ApiResponse<PostUpdateRes>> patch(@PathVariable Long postId, /*@AuthenticationPrincipal UserDetails user,*/ @RequestBody PostUpdateReq req) {
+
         PostUpdateRes res = postService.updatePost(postId, req);
 
         return ResponseEntity.status(HttpStatus.OK)

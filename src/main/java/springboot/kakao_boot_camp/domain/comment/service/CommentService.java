@@ -15,6 +15,9 @@ import springboot.kakao_boot_camp.domain.comment.repository.CommentRepository;
 import springboot.kakao_boot_camp.domain.post.entity.Post;
 import springboot.kakao_boot_camp.domain.post.exception.PostNotFoundException;
 import springboot.kakao_boot_camp.domain.post.repository.PostRepository;
+import springboot.kakao_boot_camp.domain.user.entity.User;
+import springboot.kakao_boot_camp.domain.user.exception.UserNotFoundException;
+import springboot.kakao_boot_camp.domain.user.repository.UserRepo;
 import springboot.kakao_boot_camp.global.dto.CursorInfo;
 import springboot.kakao_boot_camp.global.dto.PageInfo;
 
@@ -24,16 +27,25 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CommentService {
+    private final UserRepo userRepository;
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
 
 
     // -- C --
     public CommentCreateRes createComment(Long postId, CommentCreateReq commentCreateReq) {
+
+        Long userId = 1L;
+        User user =userRepository.findById(userId)
+                .orElseThrow(UserNotFoundException::new);
+
+
         Post post = postRepository.findById(postId)
                 .orElseThrow(PostNotFoundException::new);
 
         Comment comment = Comment.builder()
+                .user(user)
+                .post(post)
                 .content(commentCreateReq.content())
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())

@@ -7,6 +7,9 @@ import springboot.kakao_boot_camp.domain.post.dto.PostDtos.*;
 import springboot.kakao_boot_camp.domain.post.entity.Post;
 import springboot.kakao_boot_camp.domain.post.exception.PostNotFoundException;
 import springboot.kakao_boot_camp.domain.post.repository.PostRepository;
+import springboot.kakao_boot_camp.domain.user.entity.User;
+import springboot.kakao_boot_camp.domain.user.exception.UserNotFoundException;
+import springboot.kakao_boot_camp.domain.user.repository.UserRepo;
 import springboot.kakao_boot_camp.global.dto.CursorInfo;
 
 import java.time.LocalDateTime;
@@ -15,16 +18,21 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class PostService {
+    private final UserRepo userRepository;
     private final PostRepository postRepository;
 
      // -- C --
     public PostCreateRes createPost(PostCreateReq req) {
+
+        Long userId = 1L;
+        User user =userRepository.findById(userId)
+                .orElseThrow(UserNotFoundException::new);
+
+
         Post post = new Post();
+
         post.setTitle(req.title());
-
-        // Todo : 후 인증 기능 추가하면 넣을 예정
-        // post.setUser();
-
+        post.setUser(user);
         post.setContent(req.content());
         post.setImageUrl(req.imageUrl());
         post.setCratedAt(LocalDateTime.now());
