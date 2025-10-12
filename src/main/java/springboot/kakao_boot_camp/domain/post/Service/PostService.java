@@ -1,17 +1,16 @@
 package springboot.kakao_boot_camp.domain.post.Service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import springboot.kakao_boot_camp.domain.post.dto.PostDtos.*;
 import springboot.kakao_boot_camp.domain.post.entity.Post;
 import springboot.kakao_boot_camp.domain.post.exception.PostNotFoundException;
 import springboot.kakao_boot_camp.domain.post.repository.PostRepository;
+import springboot.kakao_boot_camp.global.dto.CursorInfo;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -78,7 +77,7 @@ public class PostService {
                 .toList();
 
         // 📍 페이지 정보 생성
-        PostListRes.PageInfo pageInfo = PostListRes.PageInfo.of(hasNext, nextCursor, size);
+        CursorInfo pageInfo = CursorInfo.of(hasNext, nextCursor, size);
 
         return PostListRes.of(postSummaries, pageInfo);
     }
