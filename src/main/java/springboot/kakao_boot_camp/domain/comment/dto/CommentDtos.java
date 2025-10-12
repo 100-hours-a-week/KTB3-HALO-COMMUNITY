@@ -14,25 +14,15 @@ public class CommentDtos {
             @NotBlank(message = "댓글 내용은 비워둘 수 없습니다.")
             @Size(max = 1000, message = "댓글은 최대 1000자까지 입력 가능합니다.")
             String content
-    ) {}
+    ) {
+    }
     public record CommentCreateRes(
-            Long commentId,
-            String content,
-            String nickName,
-            String profileImageUrl,
-            LocalDateTime createdAt,
-            LocalDateTime updatedAt
+            Long commentId
     ) {
         public static CommentCreateRes from(Comment comment) {
             return new CommentCreateRes(
-                    comment.getId(),
-                    comment.getContent(),
-                    comment.getUser().getNickName(),
-                    comment.getUser().getProfileImage(),
-                    comment.getCreatedAt(),
-                    comment.getUpdatedAt()
+                    comment.getId()
             );
         }
     }
-
 }
