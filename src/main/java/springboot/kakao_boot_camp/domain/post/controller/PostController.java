@@ -26,7 +26,7 @@ public class PostController {
         PostListRes res = postService.getPostList(cursor);
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(ApiResponse.success(SuccessMessage.POST_LIST_READ_SUCCESS, res));
+                .body(ApiResponse.success(HttpStatus.OK, SuccessMessage.POST_LIST_READ_SUCCESS, res));
     }
 
     @GetMapping("/{postId}")
@@ -34,7 +34,7 @@ public class PostController {
         PostDetailRes res = postService.getPostDetail(postId);
 
         return ResponseEntity.status(HttpStatus.OK)      // StateLine에 200 전송
-                .body(ApiResponse.success(SuccessMessage.POST_READ_SUCCESS, res));
+                .body(ApiResponse.success(HttpStatus.OK, SuccessMessage.POST_READ_SUCCESS, res));
     }
 
 
@@ -44,7 +44,7 @@ public class PostController {
         PostCreateRes res = postService.createPost(req);
 
         return ResponseEntity.status(HttpStatus.CREATED)      // StateLine에 200 전송
-                .body(ApiResponse.success(SuccessMessage.POST_CREATE_SUCCESS, res));
+                .body(ApiResponse.success(HttpStatus.CREATED, SuccessMessage.POST_CREATE_SUCCESS, res));
     }
 
 
@@ -54,7 +54,7 @@ public class PostController {
         PostUpdateRes res = postService.updatePost(postId, req);
 
         return ResponseEntity.status(HttpStatus.OK)      // StateLine에 200 전송
-                .body(ApiResponse.success(SuccessMessage.POST_UPDATE_SUCCESS, res));
+                .body(ApiResponse.success(HttpStatus.OK, SuccessMessage.POST_UPDATE_SUCCESS, res));
     }
 
 
@@ -63,6 +63,6 @@ public class PostController {
     public ResponseEntity<ApiResponse<PostDeleteRes>> delete(@PathVariable Long postId) {
         PostDeleteRes res = postService.deletePost(postId);
         return ResponseEntity.status(HttpStatus.OK)   // StateLine에 200 전송
-                .body(ApiResponse.success(SuccessMessage.POST_DELETE_SUCCESS, res));
+                .body(ApiResponse.success(HttpStatus.OK, SuccessMessage.POST_DELETE_SUCCESS, res));
     }
 }

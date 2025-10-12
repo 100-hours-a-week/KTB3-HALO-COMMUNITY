@@ -28,7 +28,7 @@ public class AuthController {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(ApiResponse.success(SuccessMessage.REGISTER_SUCCESS, res));
+                .body(ApiResponse.success(HttpStatus.OK, SuccessMessage.REGISTER_SUCCESS, res));
 
 
     }
@@ -39,7 +39,7 @@ public class AuthController {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(ApiResponse.success(SuccessMessage.LOGIN_SUCCESS, res));
+                .body(ApiResponse.success(HttpStatus.OK, SuccessMessage.LOGIN_SUCCESS, res));
 
 
     }
