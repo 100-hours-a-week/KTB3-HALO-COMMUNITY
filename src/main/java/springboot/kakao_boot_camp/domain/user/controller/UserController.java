@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import springboot.kakao_boot_camp.domain.user.dto.UserResDto;
 import springboot.kakao_boot_camp.domain.user.entity.User;
 import springboot.kakao_boot_camp.domain.user.service.UserService;
+import springboot.kakao_boot_camp.global.api.ApiResponse;
+import springboot.kakao_boot_camp.global.api.SuccessCode;
 
 import java.util.List;
 
@@ -19,14 +21,10 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/users")
-    public ResponseEntity<UserResDto> signUp(){
-
+    public ResponseEntity<ApiResponse<UserResDto>> getUsers(){
         List<User> users =userService.getUsers();
-
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .header("header 1","halo")  //  key : value
-                .body(new UserResDto(users));
-
+                .body(ApiResponse.success(SuccessCode.GET_USERS_SUCCESS, new UserResDto(users)));
     }
 }
