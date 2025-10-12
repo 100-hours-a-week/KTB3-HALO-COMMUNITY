@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springboot.kakao_boot_camp.domain.auth.dto.AuthDtos.*;
 import springboot.kakao_boot_camp.global.api.ApiResponse;
-import springboot.kakao_boot_camp.global.api.SuccessCode;
+import springboot.kakao_boot_camp.global.api.SuccessMessage;
 import springboot.kakao_boot_camp.domain.auth.service.AuthService;
 
 @RequiredArgsConstructor
@@ -28,7 +28,7 @@ public class AuthController {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(ApiResponse.success(SuccessCode.REGISTER_SUCCESS, res));
+                .body(ApiResponse.success(SuccessMessage.REGISTER_SUCCESS, res));
 
 
     }
@@ -39,7 +39,7 @@ public class AuthController {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(ApiResponse.success(SuccessCode.LOGIN_SUCCESS, res));
+                .body(ApiResponse.success(SuccessMessage.LOGIN_SUCCESS, res));
 
 
     }

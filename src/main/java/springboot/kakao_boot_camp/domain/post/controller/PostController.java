@@ -7,18 +7,15 @@ import org.springframework.web.bind.annotation.*;
 import springboot.kakao_boot_camp.domain.post.Service.PostService;
 import springboot.kakao_boot_camp.domain.post.dto.PostDtos.*;
 import springboot.kakao_boot_camp.global.api.ApiResponse;
-import springboot.kakao_boot_camp.global.api.SuccessCode;
-
-import java.util.List;
+import springboot.kakao_boot_camp.global.api.SuccessMessage;
 
 @RestController
 @RequestMapping("/api/v1/posts")
 public class PostController {
     private final PostService postService;
-    // 학습용이라 @RequiredArgsConstructor 안씀
     public PostController(PostService postService) {
         this.postService = postService;
-    }
+    } // 학습용이라 @RequiredArgsConstructor 안씀
 
 
 
@@ -29,7 +26,7 @@ public class PostController {
         PostListRes res = postService.getPostList(cursor);
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(ApiResponse.success(SuccessCode.POST_LIST_READ_SUCCESS, res));
+                .body(ApiResponse.success(SuccessMessage.POST_LIST_READ_SUCCESS, res));
     }
 
     @GetMapping("/{postId}")
@@ -37,7 +34,7 @@ public class PostController {
         PostDetailRes res = postService.getPostDetail(postId);
 
         return ResponseEntity.status(HttpStatus.OK)      // StateLine에 200 전송
-                .body(ApiResponse.success(SuccessCode.POST_READ_SUCCESS, res));
+                .body(ApiResponse.success(SuccessMessage.POST_READ_SUCCESS, res));
     }
 
 
@@ -47,7 +44,7 @@ public class PostController {
         PostCreateRes res = postService.createPost(req);
 
         return ResponseEntity.status(HttpStatus.CREATED)      // StateLine에 200 전송
-                .body(ApiResponse.success(SuccessCode.POST_CREATE_SUCCESS, res));
+                .body(ApiResponse.success(SuccessMessage.POST_CREATE_SUCCESS, res));
     }
 
 
@@ -57,7 +54,7 @@ public class PostController {
         PostUpdateRes res = postService.updatePost(postId, req);
 
         return ResponseEntity.status(HttpStatus.OK)      // StateLine에 200 전송
-                .body(ApiResponse.success(SuccessCode.POST_UPDATE_SUCCESS, res));
+                .body(ApiResponse.success(SuccessMessage.POST_UPDATE_SUCCESS, res));
     }
 
 
@@ -66,6 +63,6 @@ public class PostController {
     public ResponseEntity<ApiResponse<PostDeleteRes>> delete(@PathVariable Long postId) {
         PostDeleteRes res = postService.deletePost(postId);
         return ResponseEntity.status(HttpStatus.OK)   // StateLine에 200 전송
-                .body(ApiResponse.success(SuccessCode.POST_DELETE_SUCCESS, res));
+                .body(ApiResponse.success(SuccessMessage.POST_DELETE_SUCCESS, res));
     }
 }
