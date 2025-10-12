@@ -28,7 +28,13 @@ public class AuthController {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
+<<<<<<< HEAD
                 .body(ApiResponse.success(SuccessCode.REGISTER_SUCCESS, res));
+=======
+                .body(ApiResponse.success(HttpStatus.OK, SuccessMessage.REGISTER_SUCCESS, res));
+
+
+>>>>>>> origin/main
     }
 
     @PostMapping("/login")
@@ -37,6 +43,12 @@ public class AuthController {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
+<<<<<<< HEAD
                 .body(ApiResponse.success(SuccessCode.LOGIN_SUCCESS, res));
+=======
+                .body(ApiResponse.success(HttpStatus.OK, SuccessMessage.LOGIN_SUCCESS, res));
+
+
+>>>>>>> origin/main
     }
 }
