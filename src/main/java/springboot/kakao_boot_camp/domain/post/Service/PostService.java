@@ -1,5 +1,6 @@
 package springboot.kakao_boot_camp.domain.post.Service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,16 +14,30 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class PostService {
-
     private final PostRepository postRepository;
 
-    public PostService(PostRepository postRepository) {
-        this.postRepository = postRepository;
+     // -- C --
+    public PostCreateRes createPost(PostCreateReq req) {
+        Post post = new Post();
+        post.setTitle(req.title());
+
+        // Todo : 후 인증 기능 추가하면 넣을 예정
+        // post.setUser();
+
+        post.setContent(req.content());
+        post.setImageUrl(req.imageUrl());
+        post.setCratedAt(LocalDateTime.now());
+        post.setUpdatedAt(LocalDateTime.now());
+
+        Post saved = postRepository.save(post);
+
+        return PostCreateRes.from(post);
     }
 
 
-    // -- Get --
+    // -- R --
     @Transactional
     public PostDetailRes getPostDetail(Long id) {
         Post post = postRepository.findById(id)
@@ -31,8 +46,6 @@ public class PostService {
         return PostDetailRes.from(post);
 
     }
-
-
     @Transactional(readOnly = true)
     public PostListRes getPostList(Long cursor) {
         int size = 10; // 한 번에 가져올 게시글 수
@@ -71,25 +84,7 @@ public class PostService {
     }
 
 
-    // -- Post --
-    public PostCreateRes createPost(PostCreateReq req) {
-        Post post = new Post();
-        post.setTitle(req.title());
-
-        // Todo : 후 인증 기능 추가하면 넣을 예정
-        // post.setUser();
-
-        post.setContent(req.content());
-        post.setImageUrl(req.imageUrl());
-        post.setCratedAt(LocalDateTime.now());
-        post.setUpdatedAt(LocalDateTime.now());
-
-        Post saved = postRepository.save(post);
-
-        return PostCreateRes.from(post);
-    }
-
-    // -- Update : Patch --
+    // -- U --
     @Transactional
     public PostUpdateRes updatePost(Long postId, PostUpdateReq req) {
         Post post = postRepository.findById(postId)
@@ -104,7 +99,8 @@ public class PostService {
         return PostUpdateRes.from(post);
     }
 
-    // -- Delete --
+
+    // -- D --
     @Transactional
     public PostDeleteRes deletePost(Long postId) {
         Post post = postRepository.findById(postId)

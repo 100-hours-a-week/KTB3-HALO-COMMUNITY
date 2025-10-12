@@ -55,9 +55,11 @@ public class PostDtos {
                 String title,
                 String nickname,
                 String profileImageUrl,
+
                 int likeCount,
                 int commentCount,
                 int viewCount,
+
                 LocalDateTime createdAt,
                 LocalDateTime updatedAt
         ) {
@@ -166,7 +168,7 @@ public class PostDtos {
     // -- D --
     public record PostDeleteReq(){}
     public record PostDeleteRes(
-            Long id,
+            Long postId,
 //            boolean deleted,        // 추후 soft 삭제 시 사용
             LocalDateTime deletedAt
     ){
