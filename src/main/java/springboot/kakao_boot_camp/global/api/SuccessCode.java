@@ -24,8 +24,10 @@ public enum SuccessCode {
     POST_DELETE_SUCCESS(HttpStatus.OK, "게시글을 성공적으로 삭제하였습니다."),
 
     // -- Comment --
-    COMMENT_CREATE_SUCCESS(HttpStatus.CREATED, "게시글을 성공적으로 등록하였습니다.");
-
+    COMMENT_CREATE_SUCCESS(HttpStatus.CREATED, "게시글을 성공적으로 등록하였습니다."),
+    COMMENT_LIST_READ_SUCCESS(HttpStatus.OK, "댓글 목록을 성공적으로 조회하였습니다."),
+    COMMENT_LIST_EMPTY(HttpStatus.OK, "댓글이 없습니다."),
+    COMMENT_READ_SUCCESS(HttpStatus.OK, "댓글을 성공적으로 조회하였습니다.");
 
 
     private final HttpStatus status;
