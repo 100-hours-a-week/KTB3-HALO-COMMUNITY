@@ -33,8 +33,7 @@ public class GlobalExceptionHandler {
     // -- Common --
 
 
-    // 400
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler(MethodArgumentNotValidException.class)                                                         // 400
     public ResponseEntity<ApiResponse<Void>> handleValidationException(MethodArgumentNotValidException e) {
         ErrorCode errorCode = ErrorCode.INVALID_REQUEST;
         return ResponseEntity
@@ -43,13 +42,16 @@ public class GlobalExceptionHandler {
     }
 
 
-    //409
-    @ExceptionHandler(DuplicateResourceException.class)
+    @ExceptionHandler(DuplicateResourceException.class)                                                              //409
     public ResponseEntity<ApiResponse<Void>> hanlderDuplicateResource(DuplicateResourceException e){
         ErrorCode errorCode = ErrorCode.DUPLICATE_EMAIL;
         return  ResponseEntity
                 .status(errorCode.getStatus())                                    // 409
                 .body(ApiResponse.error(errorCode));        // code : DUPLICATE_EMAIL, message : 이미 존재하는 이메일입니다
     }
+
+
+
+
 
 }
