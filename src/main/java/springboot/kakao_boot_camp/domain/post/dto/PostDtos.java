@@ -1,12 +1,11 @@
 package springboot.kakao_boot_camp.domain.post.dto;
 
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import springboot.kakao_boot_camp.domain.post.entity.Post;
+import springboot.kakao_boot_camp.global.dto.CursorInfo;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
 
 public class PostDtos {
@@ -43,9 +42,9 @@ public class PostDtos {
     // -- R --
     public record PostListRes(
         List<PostSummary> posts,
-        PageInfo pageInfo
+        CursorInfo pageInfo
     ) {
-        public static PostListRes of(List<PostSummary> posts, PageInfo pageInfo) {
+        public static PostListRes of(List<PostSummary> posts, CursorInfo pageInfo) {
             return new PostListRes(posts, pageInfo);
         }
 
@@ -88,16 +87,7 @@ public class PostDtos {
             }
         }
 
-        // 🧭 페이지 정보
-        public record PageInfo(
-                boolean hasNext,
-                Long nextCursor,
-                int size
-        ) {
-            public static PageInfo of(boolean hasNext, Long nextCursor, int size) {
-                return new PageInfo(hasNext, nextCursor, size);
-            }
-        }
+
 
     }
     public record PostDetailRes(

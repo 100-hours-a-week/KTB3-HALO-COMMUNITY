@@ -17,7 +17,12 @@ public enum ErrorCode {
 
 
     // -- Post --
-    POST_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 게시글을 찾을 수 없습니다.");                     //404
+    POST_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 게시글을 찾을 수 없습니다."),                    //404
+
+
+    // --  Comment --
+    COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 댓글 찾을 수 없습니다.");                     //404
+
 
 
     private final HttpStatus status;

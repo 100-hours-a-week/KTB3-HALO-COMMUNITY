@@ -12,13 +12,13 @@ import springboot.kakao_boot_camp.global.api.ApiResponse;
 import springboot.kakao_boot_camp.global.api.SuccessCode;
 
 @RestController
-@RequestMapping("/api/v1/posts")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class CommentController {
     private final CommentService commentService;
 
     // -- C --
-    @PostMapping("/{postId}/comments")
+    @PostMapping("/posts/{postId}/comments")
     public ResponseEntity<ApiResponse<CommentCreateRes>> create(@PathVariable Long postId, @RequestBody CommentCreateReq commentCreateReq) {
         CommentCreateRes res = commentService.createComment(postId, commentCreateReq);
 
@@ -26,9 +26,27 @@ public class CommentController {
                 .body(ApiResponse.success(SuccessCode.COMMENT_CREATE_SUCCESS, res));
     }
 
+    // -- R --
+    @GetMapping("/posts/{postId}/comments")
+    public ResponseEntity<ApiResponse<CommentListRes>> getCommentList(@PathVariable Long postId, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size) {
+        CommentListRes res = commentService.getCommentList(postId, page, size);
 
+        if (res.comments().isEmpty()) {
+            return ResponseEntity.ok(ApiResponse.success(SuccessCode.COMMENT_LIST_EMPTY, res));
+        }
 
-
+        return ResponseEntity.ok(ApiResponse.success(SuccessCode.COMMENT_LIST_READ_SUCCESS, res));
+}
+    @GetMapping("/comments/{commentId}")
+    public ResponseEntity<ApiResponse<CommentDetailRes>> getCommentDetail(@PathVariable Long commentId) {
+        CommentDetailRes res = commentService.getCommentDetail(commentId);
+        return ResponseEntity.ok(ApiResponse.success(SuccessCode.COMMENT_READ_SUCCESS, res));
+    }
 
 
 }
+
+
+
+
+
