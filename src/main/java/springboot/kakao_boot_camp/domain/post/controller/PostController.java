@@ -17,42 +17,13 @@ public class PostController {
     private final PostService postService;
 
 
-<<<<<<< HEAD
     // -- C --
-=======
-
-
-    // -- Get --   ✅
-    @GetMapping
-    public ResponseEntity<ApiResponse<PostListRes>> getList(@RequestParam Long cursor) {
-        PostListRes res = postService.getPostList(cursor);
-
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(ApiResponse.success(HttpStatus.OK, SuccessMessage.POST_LIST_READ_SUCCESS, res));
-    }
-
-    @GetMapping("/{postId}")
-    public ResponseEntity<ApiResponse<PostDetailRes>> getDetails(@PathVariable Long postId) {
-        PostDetailRes res = postService.getPostDetail(postId);
-
-        return ResponseEntity.status(HttpStatus.OK)      // StateLine에 200 전송
-                .body(ApiResponse.success(HttpStatus.OK, SuccessMessage.POST_READ_SUCCESS, res));
-    }
-
-
-    // -- Post --   ✅
->>>>>>> origin/main
     @PostMapping
     public ResponseEntity<ApiResponse<PostCreateRes>> create(@RequestBody @Valid PostCreateReq req) {
         PostCreateRes res = postService.createPost(req);
 
-<<<<<<< HEAD
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ApiResponse.success(SuccessCode.POST_CREATE_SUCCESS, res));
-=======
-        return ResponseEntity.status(HttpStatus.CREATED)      // StateLine에 200 전송
-                .body(ApiResponse.success(HttpStatus.CREATED, SuccessMessage.POST_CREATE_SUCCESS, res));
->>>>>>> origin/main
     }
 
 
@@ -76,13 +47,8 @@ public class PostController {
     public ResponseEntity<ApiResponse<PostUpdateRes>> patch(@PathVariable Long postId, /*@AuthenticationPrincipal UserDetails user,*/ @RequestBody PostUpdateReq req) {
         PostUpdateRes res = postService.updatePost(postId, req);
 
-<<<<<<< HEAD
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ApiResponse.success(SuccessCode.POST_UPDATE_SUCCESS, res));
-=======
-        return ResponseEntity.status(HttpStatus.OK)      // StateLine에 200 전송
-                .body(ApiResponse.success(HttpStatus.OK, SuccessMessage.POST_UPDATE_SUCCESS, res));
->>>>>>> origin/main
     }
 
 
@@ -90,13 +56,8 @@ public class PostController {
     @DeleteMapping("/{postId}")
     public ResponseEntity<ApiResponse<PostDeleteRes>> delete(@PathVariable Long postId) {
         PostDeleteRes res = postService.deletePost(postId);
-<<<<<<< HEAD
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ApiResponse.success(SuccessCode.POST_DELETE_SUCCESS, res));
-=======
-        return ResponseEntity.status(HttpStatus.OK)   // StateLine에 200 전송
-                .body(ApiResponse.success(HttpStatus.OK, SuccessMessage.POST_DELETE_SUCCESS, res));
->>>>>>> origin/main
     }
 }
