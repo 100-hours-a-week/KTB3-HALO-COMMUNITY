@@ -82,5 +82,38 @@ public class CommentDtos {
     }
 }
 
+    // -- U --
+    public record CommentUpdateReq(
+            String content
+    ) { }
+    public record CommentUpdateRes(
+            Long commentId,
+            String content,
+            String nickname,
+            String profileImage,
+            LocalDateTime updatedAt
+    ) {
+        public static CommentUpdateRes of(Comment comment) {
+            return new CommentUpdateRes(
+                    comment.getId(),
+                    comment.getContent(),
+                    comment.getUser().getNickName(),
+                    comment.getUser().getProfileImage(),
+                    comment.getUpdatedAt()
+            );
+        }
+    }
+
+    // -- D --
+    public record CommentDeleteRes(
+        Long commentId,
+        LocalDateTime deletedAt
+) {
+        public static CommentDeleteRes of(Long commentId, LocalDateTime deletedAt) {
+            return new CommentDeleteRes(commentId, deletedAt);
+        }
+    }
+
+
 
 }

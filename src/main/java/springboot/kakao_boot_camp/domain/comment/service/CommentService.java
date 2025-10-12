@@ -1,5 +1,6 @@
 package springboot.kakao_boot_camp.domain.comment.service;
 
+import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -65,14 +66,41 @@ public class CommentService {
 
         return CommentListRes.of(commentList, pageInfo);
     }
+
     @Transactional(readOnly = true)
     public CommentDetailRes getCommentDetail(Long commentId) {
-    Comment comment = commentRepository.findById(commentId)
-            .orElseThrow(CommentNotFoundException::new);
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(CommentNotFoundException::new);
 
-    return CommentDetailRes.of(comment);
+        return CommentDetailRes.of(comment);
     }
 
+
+    // -- U --
+    @Transactional
+    public CommentUpdateRes updateComment(Long commentId, CommentUpdateReq req) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(CommentNotFoundException::new);
+
+        if (req.content() != null && !req.content().isBlank()) {
+            comment.setContent(req.content());
+            comment.setUpdatedAt(LocalDateTime.now());
+        }
+
+        return CommentUpdateRes.of(comment);
+    }
+
+
+    // -- D --
+    @Transactional
+    public CommentDeleteRes deleteComment(Long commentId) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(CommentNotFoundException::new);
+
+        commentRepository.delete(comment);
+
+        return CommentDeleteRes.of(commentId, LocalDateTime.now());
+    }
 
 
 }
