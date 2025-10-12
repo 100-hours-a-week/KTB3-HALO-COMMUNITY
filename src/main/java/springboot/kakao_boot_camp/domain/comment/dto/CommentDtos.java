@@ -3,6 +3,8 @@ package springboot.kakao_boot_camp.domain.comment.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import springboot.kakao_boot_camp.domain.comment.entity.Comment;
+import springboot.kakao_boot_camp.global.dto.CursorInfo;
+import springboot.kakao_boot_camp.global.dto.PageInfo;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,4 +27,60 @@ public class CommentDtos {
             );
         }
     }
+
+    // -- R --
+    public record CommentListRes(
+        List<CommentSummary> comments,
+        PageInfo pageInfo
+    ) {
+        public static CommentListRes of(List<CommentSummary> comments, PageInfo pageInfo) {
+            return new CommentListRes(comments, pageInfo);
+        }
+
+        // 📝 댓글 요약 DTO
+        public record CommentSummary(
+                Long commentId,
+                String nickname,
+                String profileImageUrl,
+                String content,
+                LocalDateTime createdAt,
+                LocalDateTime updatedAt
+        ) {
+            public static CommentSummary of(
+                    Long commentId,
+                    String nickname,
+                    String profileImageUrl,
+                    String content,
+                    LocalDateTime createdAt,
+                    LocalDateTime updatedAt
+            ) {
+                return new CommentSummary(commentId, nickname, profileImageUrl, content, createdAt, updatedAt);
+            }
+        }
+        }
+    public record CommentDetailRes(
+        Long commentId,
+        Long postId,
+        Long userId,
+        String nickname,
+        String profileImageUrl,
+        String content,
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt
+) {
+    public static CommentDetailRes of(Comment comment) {
+        return new CommentDetailRes(
+                comment.getId(),
+                comment.getPost().getId(),
+                comment.getUser().getId(),
+                comment.getUser().getNickName(),
+                comment.getUser().getProfileImage(),
+                comment.getContent(),
+                comment.getCreatedAt(),
+                comment.getUpdatedAt()
+        );
+    }
+}
+
+
 }
