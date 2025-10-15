@@ -1,11 +1,10 @@
-package springboot.kakao_boot_camp.domain.comment.dto;
+package springboot.kakao_boot_camp.domain.comment.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
-import springboot.kakao_boot_camp.domain.user.entity.User;
+import lombok.*;
 import springboot.kakao_boot_camp.domain.post.entity.Post;
+import springboot.kakao_boot_camp.domain.user.entity.User;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +12,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Table(name = "comment")
+@Builder
+@AllArgsConstructor
 public class Comment {
 
     @Id
@@ -20,31 +21,22 @@ public class Comment {
     @Column(name = "comment_id")
     private Long id;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-
-    // Todo
-    // [Content]
-    // size <= 1000
     @Size(max = 1000)
     private String content;
 
-
-
-    // Todo
-    //  [createtime]
     private LocalDateTime createdAt;
-
-
-    // Todo
-    // [updatedTime]
     private LocalDateTime updatedAt;
 
+
+    public Comment() {
+    }
 }
+
